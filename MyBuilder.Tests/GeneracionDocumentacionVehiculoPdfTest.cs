@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
 using NUnit.Framework;
 
 namespace MyBuilder.Tests
@@ -11,41 +12,52 @@ namespace MyBuilder.Tests
     public class GeneracionDocumentacionVehiculoPdfTest
     {
         [Test]
-        public void PuedoGenerarDocumentoVentaPdfYObtenerUnDocumento()
+        public void PuedoGenerarDocumentoVentaPdf()
+        {
+            var documentacion = new Mock<DocumentacionPdf>();
+            documentacion.Setup(s => s.Agregar(It.IsAny<string>()));
+            var generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf(documentacion.Object);
+
+            generacionDocumentacionVehiculo.DocumentoVenta("Luís");
+
+            documentacion.Verify(v => v.Agregar(It.IsAny<string>()));
+        }
+
+        [Test]
+        public void PuedoGenerarDocumentoMatriculacionPdf()
+        {
+            var documentacion = new Mock<DocumentacionPdf>();
+            documentacion.Setup(s => s.Agregar(It.IsAny<string>()));
+            var generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf(documentacion.Object);
+
+            generacionDocumentacionVehiculo.DocumentoMatriculacion("Luís");
+
+            documentacion.Verify(v => v.Agregar(It.IsAny<string>()));
+        }
+
+        [Test]
+        public void PuedoGenerarDocumentoVentaYMatriculacionPdf()
+        {
+            var documentacion = new Mock<DocumentacionPdf>();
+            documentacion.Setup(s => s.Agregar(It.IsAny<string>()));
+            var generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf(documentacion.Object);
+
+            generacionDocumentacionVehiculo.DocumentoVenta("Luís");
+            generacionDocumentacionVehiculo.DocumentoMatriculacion("Luís");
+
+            documentacion.Verify(v => v.Agregar(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+        [Test]
+        public void PuedoObtenerDocumentacionGeneradaPdf()
         {
             var generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf();
 
             generacionDocumentacionVehiculo.DocumentoVenta("Luís");
-            var documentacion = generacionDocumentacionVehiculo.ObtenerTodaLaDocumentacion();
-            var numeroDocumentos = documentacion.ObtenerDocumentos().Count;
-
-            Assert.AreEqual(1, numeroDocumentos);
-        }
-
-        [Test]
-        public void PuedoGenerarDocumentoMatriculacionPdfYObtenerUnDocumento()
-        {
-            var generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf();
-
             generacionDocumentacionVehiculo.DocumentoMatriculacion("Luís");
-            var documentacion = generacionDocumentacionVehiculo.ObtenerTodaLaDocumentacion();
-            var numeroDocumentos = documentacion.ObtenerDocumentos().Count;
+            var documentacion = generacionDocumentacionVehiculo.ObtenerTodaLaDocumentacion().ObtenerDocumentos();
 
-            Assert.AreEqual(1, numeroDocumentos);
-        }
-
-        [Test]
-        public void PuedoGenerarDocumentoVentaYMatriculacionPdfYObtenerDosDocumentos()
-        {
-            var generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf();
-
-            generacionDocumentacionVehiculo.DocumentoVenta("Luís");
-            generacionDocumentacionVehiculo.DocumentoMatriculacion("Luís");
-            var documentacion = generacionDocumentacionVehiculo.ObtenerTodaLaDocumentacion();
-            var numeroDocumentos = documentacion.ObtenerDocumentos().Count;
-
-            Assert.AreEqual(2, numeroDocumentos);
+            Assert.AreEqual(2, documentacion.Count);
         }
     }
-
 }

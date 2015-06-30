@@ -8,9 +8,12 @@ namespace MyBuilder
 {
     public class GeneracionDocumentacionVehiculoHtml : GeneracionDocumentacionVehiculo
     {
+        public GeneracionDocumentacionVehiculoHtml(Documentacion documentacion) : base(documentacion)
+        {
+        }
+
         public GeneracionDocumentacionVehiculoHtml(): base(new DocumentacionHtml())
         {
-            
         }
 
         public override void DocumentoVenta(string nombreCliente)

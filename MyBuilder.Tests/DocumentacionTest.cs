@@ -12,7 +12,7 @@ namespace MyBuilder.Tests
     public class DocumentacionTest
     {
         [Test]
-        public void PuedoGenerarDocumentacionPDF()
+        public void PuedoGenerarDocumentacionPdf()
         {
             Documentacion documentacion = new DocumentacionPdf();
 
@@ -22,7 +22,7 @@ namespace MyBuilder.Tests
         }
 
         [Test]
-        public void NoPuedoGenerarDocumentacionPDFSiNoEsPDF()
+        public void NoPuedoGenerarDocumentacionPdfsiNoEsPdf()
         {
             Documentacion documentacion = new DocumentacionPdf();
 
@@ -32,7 +32,7 @@ namespace MyBuilder.Tests
         }
 
         [Test]
-        public void PuedoGenerarUnDocumentoHTML()
+        public void PuedoGenerarUnDocumentoHtml()
         {
             Documentacion documentacion = new DocumentacionHtml();
 
@@ -42,7 +42,7 @@ namespace MyBuilder.Tests
         }
 
         [Test]
-        public void NoPuedoGenerarUnDocumentoHTMLSiNoEsHTML()
+        public void NoPuedoGenerarUnDocumentoHtmlsiNoEsHtml()
         {
             Documentacion documentacion = new DocumentacionHtml();
 

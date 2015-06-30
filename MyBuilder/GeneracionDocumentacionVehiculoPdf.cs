@@ -8,6 +8,10 @@ namespace MyBuilder
 {
     public class GeneracionDocumentacionVehiculoPdf : GeneracionDocumentacionVehiculo
     {
+        public GeneracionDocumentacionVehiculoPdf(Documentacion documentacion) : base(documentacion)
+        {
+        }
+
         public GeneracionDocumentacionVehiculoPdf() : base(new DocumentacionPdf())
         {
         }
