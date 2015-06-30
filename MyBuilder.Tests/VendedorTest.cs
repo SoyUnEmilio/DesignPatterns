@@ -12,48 +12,25 @@ namespace MyBuilder.Tests
     public class VendedorTest
     {
         [Test]
-        public void UnVendedorPuedeGenerarDocumentoDeVentaPDFParaCliente()
-        {
-            GeneracionDocumentacionVehiculo generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf();
-            Vendedor vendedor = new Vendedor(generacionDocumentacionVehiculo);
-            
-            vendedor.GenerarDocumentoVenta("Luís");
-            
-            Assert.AreEqual(1, vendedor.ObtenerDocumentosGenerados().ObtenerDocumentos().Count);
-        }
-
-        [Test]
-        public void UnVendedorPuedeGenerarDocumentoDeVentaHTMLParaCliente()
-        {
-            GeneracionDocumentacionVehiculo generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoHtml();
-            Vendedor vendedor = new Vendedor(generacionDocumentacionVehiculo);
-
-            vendedor.GenerarDocumentoVenta("Luís");
-
-            Assert.AreEqual(1, vendedor.ObtenerDocumentosGenerados().ObtenerDocumentos().Count);
-        }
-
-        [Test]
-        public void UnVendedorPuedeGenerarDocumentoDeMatricualcionPDFParaCliente()
+        public void UnVendedorPuedeGenerarDocumentacionPdfParaCliente()
         {
             GeneracionDocumentacionVehiculo generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoPdf();
             Vendedor vendedor = new Vendedor(generacionDocumentacionVehiculo);
 
-            vendedor.GenerarDocumentoMatriculacion("Luís");
+            Documentacion documentacion = vendedor.GenerarYObtenerDocumentacion("Luís");
 
-            Assert.AreEqual(1, vendedor.ObtenerDocumentosGenerados().ObtenerDocumentos().Count);
+            Assert.AreEqual(2, documentacion.ObtenerDocumentos().Count);
         }
 
         [Test]
-        public void UnVendedorPuedeGenerarDocumentoDeMatricualcionHTMLParaCliente()
+        public void UnVendedorPuedeGenerarDocumentacionHtmlParaCliente()
         {
             GeneracionDocumentacionVehiculo generacionDocumentacionVehiculo = new GeneracionDocumentacionVehiculoHtml();
             Vendedor vendedor = new Vendedor(generacionDocumentacionVehiculo);
 
-            vendedor.GenerarDocumentoMatriculacion("Luís");
+            Documentacion documentacion = vendedor.GenerarYObtenerDocumentacion("Luís");
 
-            Assert.AreEqual(1, vendedor.ObtenerDocumentosGenerados().ObtenerDocumentos().Count);
+            Assert.AreEqual(2, documentacion.ObtenerDocumentos().Count);
         }
-
     }
 }

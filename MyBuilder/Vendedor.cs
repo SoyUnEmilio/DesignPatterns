@@ -15,19 +15,12 @@ namespace MyBuilder
             _generacionDocumentacionVehiculo = generacionDocumentacionVehiculo;
         }
 
-        public void GenerarDocumentoVenta(string nombreCliente)
+        public Documentacion GenerarYObtenerDocumentacion(string nombreCliente)
         {
             _generacionDocumentacionVehiculo.DocumentoVenta(nombreCliente);
-        }
-
-        public Documentacion ObtenerDocumentosGenerados()
-        {
-            return _generacionDocumentacionVehiculo.ObtenerTodaLaDocumentacion();
-        }
-
-        public void GenerarDocumentoMatriculacion(string nombreCliente)
-        {
             _generacionDocumentacionVehiculo.DocumentoMatriculacion(nombreCliente);
+
+            return _generacionDocumentacionVehiculo.ObtenerTodaLaDocumentacion();
         }
     }
 }

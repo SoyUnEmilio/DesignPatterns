@@ -10,18 +10,20 @@ namespace MyBuilder
     {
         static void Main(string[] args)
         {
-            GeneracionDocumentacionVehiculo generacionDocumentacionVehiculoPDF = new GeneracionDocumentacionVehiculoPdf();
-            Vendedor vendedorPDF = new Vendedor(generacionDocumentacionVehiculoPDF);
-            vendedorPDF.GenerarDocumentoVenta("Luís");
-            vendedorPDF.GenerarDocumentoMatriculacion("Luís");
+            var generacionDocumentacionVehiculoPdf = new GeneracionDocumentacionVehiculoPdf();
+            var vendedorPdf = new Vendedor(generacionDocumentacionVehiculoPdf);
+            var documentacionPdf = vendedorPdf.GenerarYObtenerDocumentacion("Luís");
+            ImprimirDocumentacion(documentacionPdf);
 
-            ImprimirDocumentacionPDF(vendedorPDF);
+            var generacionDocumentacionVehiculoHtml = new GeneracionDocumentacionVehiculoHtml();
+            var vendedorHtml = new Vendedor(generacionDocumentacionVehiculoHtml);
+            var documentacionHtml = vendedorHtml.GenerarYObtenerDocumentacion("Luís");
+            ImprimirDocumentacion(documentacionHtml);
         }
 
-        private static void ImprimirDocumentacionPDF(Vendedor vendedor)
+        private static void ImprimirDocumentacion(Documentacion documentacion)
         {
-            var documentosGenerados = vendedor.ObtenerDocumentosGenerados();
-            foreach (var documento in documentosGenerados.ObtenerDocumentos())
+            foreach (var documento in documentacion.ObtenerDocumentos())
             {
                 Console.WriteLine(documento);
             }
